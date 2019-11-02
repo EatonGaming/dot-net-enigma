@@ -7,7 +7,7 @@ namespace DotNetEnigma.Enigma.Keyboard
     {
         public IEnumerable<Key> Keys { get; private set; }
 
-        public event EventHandler KeyPressed;
+        public event EventHandler KeyPressedEvent;
 
         public Keyboard()
         {
@@ -16,9 +16,14 @@ namespace DotNetEnigma.Enigma.Keyboard
 
         public static IKeyboard Default() => new Keyboard();
 
-        public void PressKey(Key key)
+        public void OnKeyPressed(Key keyPressed)
         {
-            throw new NotImplementedException();
+            if (keyPressed == Key.Unknown)
+                throw new ArgumentNullException(nameof(keyPressed));
+
+            var handler = KeyPressedEvent;
+
+            handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyPressed });
         }
 
         private void InitializeListOfKeys()

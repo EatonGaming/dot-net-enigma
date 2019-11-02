@@ -7,8 +7,8 @@ namespace DotNetEnigma.Enigma.Keyboard
     {
         IEnumerable<Key> Keys { get; }
 
-        void PressKey(Key key);
+        void OnKeyPressed(Key key);
 
-        event EventHandler KeyPressed;
+        event EventHandler KeyPressedEvent;
     }
 }
