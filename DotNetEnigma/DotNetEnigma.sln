@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetEnigma", "DotNetEnigma\DotNetEnigma.csproj", "{1C65F374-0BBA-42FC-9208-8F58936844ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNextEnigmaTests", "DotNextEnigmaTests\DotNextEnigmaTests.csproj", "{AE96113C-514C-4561-BDDF-2A4B78BA6FAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetEnigmaTests", "DotNetEnigmaTests\DotNetEnigmaTests.csproj", "{38A11DE4-A410-443D-9C0A-967FB1119A41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{1C65F374-0BBA-42FC-9208-8F58936844ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C65F374-0BBA-42FC-9208-8F58936844ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C65F374-0BBA-42FC-9208-8F58936844ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE96113C-514C-4561-BDDF-2A4B78BA6FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE96113C-514C-4561-BDDF-2A4B78BA6FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE96113C-514C-4561-BDDF-2A4B78BA6FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE96113C-514C-4561-BDDF-2A4B78BA6FAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38A11DE4-A410-443D-9C0A-967FB1119A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A11DE4-A410-443D-9C0A-967FB1119A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A11DE4-A410-443D-9C0A-967FB1119A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A11DE4-A410-443D-9C0A-967FB1119A41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

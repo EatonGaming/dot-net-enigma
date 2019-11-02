@@ -1,6 +1,7 @@
 -- Enigma Research --
 https://en.wikipedia.org/wiki/Enigma_machine
 https://www.youtube.com/watch?v=G2_Q9FoD-oQ
+https://www.cs.mcgill.ca/~rwest/wikispeedia/wpcd/wp/e/Enigma_machine.htm
 
 Notes --
 
