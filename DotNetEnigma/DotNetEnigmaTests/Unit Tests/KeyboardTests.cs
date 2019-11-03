@@ -8,6 +8,8 @@ namespace DotNetEnigmaTests.Unit_Tests
     [TestFixture]
     public class KeyboardTests
     {
+        private readonly int _numberOfKeys = Enum.GetNames(typeof(Key)).Length;
+
         [Test]
         public void Keyboard_InitializedWithStaticFactory_IsNotNull()
         {
@@ -21,11 +23,21 @@ namespace DotNetEnigmaTests.Unit_Tests
         public void Keyboard_InitializedWithStaticFactory_ContainsAllRequiredKeys()
         {
             var keyboard = Keyboard.Default();
-            var numberOfKeys = Enum.GetNames(typeof(Key)).Length;
 
             keyboard.Keys.Should()
                 .NotBeNullOrEmpty().And
-                .HaveCount(numberOfKeys).And
+                .HaveCount(_numberOfKeys).And
+                .AllBeOfType<Key>();
+        }
+
+        [Test]
+        public void Keyboard_InitializedWithConstructor_ContainsAllRequiredKeys()
+        {
+            var keyboard = new Keyboard();
+
+            keyboard.Keys.Should()
+                .NotBeNullOrEmpty().And
+                .HaveCount(_numberOfKeys).And
                 .AllBeOfType<Key>();
         }
 
