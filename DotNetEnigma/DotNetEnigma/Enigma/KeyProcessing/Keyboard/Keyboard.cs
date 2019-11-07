@@ -1,25 +1,27 @@
-﻿using System;
+﻿using DotNetEnigma.Enigma.KeyProcessing;
+using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
+using DotNetEnigma.Utilities;
+using System;
 using System.Collections.Generic;
 
 namespace DotNetEnigma.Enigma.Keyboard
 {
-    public class Keyboard : IKeyboard
+    public class Keyboard : IKeyboard, IExposeKeyPressed
     {
         public IEnumerable<Key> Keys { get; private set; }
-
-        public event EventHandler KeyPressedEvent;
 
         public Keyboard()
         {
             InitializeListOfKeys();
         }
 
-        public static IKeyboard Default() => new Keyboard();
+        public event EventHandler KeyPressedEvent;
+
+        public static Keyboard Default() => new Keyboard();
 
         public void OnKeyPressed(Key keyPressed)
         {
-            if (keyPressed == Key.Unknown)
-                throw new ArgumentNullException(nameof(keyPressed));
+            Guard.IsNotEqualTo(keyPressed, Key.Unknown, nameof(keyPressed));
 
             var handler = KeyPressedEvent;
 

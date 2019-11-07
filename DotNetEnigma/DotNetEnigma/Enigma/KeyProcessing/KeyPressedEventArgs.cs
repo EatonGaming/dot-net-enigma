@@ -1,6 +1,7 @@
-﻿using System;
+﻿using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
+using System;
 
-namespace DotNetEnigma.Enigma.Keyboard
+namespace DotNetEnigma.Enigma.KeyProcessing
 {
     public class KeyPressedEventArgs : EventArgs
     {

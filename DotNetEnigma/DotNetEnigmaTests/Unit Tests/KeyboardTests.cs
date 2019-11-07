@@ -2,6 +2,8 @@
 using DotNetEnigma.Enigma.Keyboard;
 using FluentAssertions;
 using System;
+using DotNetEnigma.Enigma.KeyProcessing;
+using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
 
 namespace DotNetEnigmaTests.Unit_Tests
 {
@@ -53,21 +55,21 @@ namespace DotNetEnigmaTests.Unit_Tests
             keyboard.OnKeyPressed(keyPressed);
 
             monitoredSubject.Should()
-                .Raise(nameof(IKeyboard.KeyPressedEvent))
+                .Raise(nameof(IExposeKeyPressed.KeyPressedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
         }
 
         [Test]
         [TestCase(null)]
         [TestCase(Key.Unknown)]
-        public void Keyboard_InvalidKeyPressed_ArgumentNullExceptionRaised(Key keyPressed)
+        public void Keyboard_InvalidKeyPressed_ArgumentExceptionRaised(Key keyPressed)
         {
             var keyboard = Keyboard.Default();
 
             Action act = () => keyboard.OnKeyPressed(keyPressed);
 
             act.Should()
-                .Throw<ArgumentNullException>();
+                .Throw<ArgumentException>();
         }
     }
 }

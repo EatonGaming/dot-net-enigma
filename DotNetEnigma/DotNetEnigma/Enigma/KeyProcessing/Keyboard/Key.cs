@@ -1,4 +1,4 @@
-﻿namespace DotNetEnigma.Enigma.Keyboard
+﻿namespace DotNetEnigma.Enigma.KeyProcessing.Keyboard
 {
     public enum Key
     {
