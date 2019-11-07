@@ -165,7 +165,7 @@ namespace DotNetEnigmaTests.Unit_Tests
             plugboard.OnKeyEntered(keyPressed);
 
             monitoredSubject.Should()
-                .Raise(nameof(IExposeKeyPressed.KeyPressedEvent))
+                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
         }
 
@@ -182,7 +182,7 @@ namespace DotNetEnigmaTests.Unit_Tests
             plugboard.OnKeyEntered(keyEntered);
 
             monitoredSubject.Should()
-                .Raise(nameof(IExposeKeyPressed.KeyPressedEvent))
+                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyReturned);
         }
 

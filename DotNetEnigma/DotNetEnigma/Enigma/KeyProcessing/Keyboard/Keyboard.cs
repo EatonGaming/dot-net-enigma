@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DotNetEnigma.Enigma.Keyboard
 {
-    public class Keyboard : IKeyboard, IExposeKeyPressed
+    public class Keyboard : IKeyboard, IKeyProvider
     {
         public IEnumerable<Key> Keys { get; private set; }
 
@@ -15,7 +15,7 @@ namespace DotNetEnigma.Enigma.Keyboard
             InitializeListOfKeys();
         }
 
-        public event EventHandler KeyPressedEvent;
+        public event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
 
         public static Keyboard Default() => new Keyboard();
 
@@ -23,7 +23,7 @@ namespace DotNetEnigma.Enigma.Keyboard
         {
             Guard.IsNotEqualTo(keyPressed, Key.Unknown, nameof(keyPressed));
 
-            var handler = KeyPressedEvent;
+            var handler = KeyProvidedEvent;
 
             handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyPressed });
         }

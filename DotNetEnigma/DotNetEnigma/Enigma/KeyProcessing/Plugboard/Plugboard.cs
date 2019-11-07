@@ -7,11 +7,20 @@ using System.Linq;
 
 namespace DotNetEnigma.Enigma.Plugboard
 {
-    public class Plugboard : IPlugboard, IExposeKeyPressed
+    public class Plugboard : IPlugboard, IKeyProvider
     {
+        private IKeyProvider _connectedKeyProvider;
+
         public ICollection<PlugCable> PlugCableConfiguration { get; private set; } = new List<PlugCable>();
 
         public Plugboard() { }
+
+        public Plugboard(IKeyProvider keyProvider)
+        {
+            _connectedKeyProvider = keyProvider;
+
+            _connectedKeyProvider.KeyProvidedEvent += HandleKeyProvided;
+        }
 
         public Plugboard(ICollection<PlugCable> plugCableConfiguration)
         {
@@ -20,7 +29,12 @@ namespace DotNetEnigma.Enigma.Plugboard
 
         public static IPlugboard Default() => new Plugboard();
 
-        public event EventHandler KeyPressedEvent;
+        public event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
+
+        public void HandleKeyProvided(object sender, KeyPressedEventArgs e)
+        {
+            OnKeyEntered(e.KeyPressed);
+        }
 
         public void InsertPlugCable(PlugCable plugCable)
         {
@@ -59,7 +73,7 @@ namespace DotNetEnigma.Enigma.Plugboard
             Guard.IsNotEqualTo(enteredKey, Key.Unknown, nameof(enteredKey));
 
             var key = ProcessKey(enteredKey);
-            var handler = KeyPressedEvent;
+            var handler = KeyProvidedEvent;
 
             handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = key });
         }

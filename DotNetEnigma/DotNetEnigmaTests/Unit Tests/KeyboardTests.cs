@@ -55,7 +55,7 @@ namespace DotNetEnigmaTests.Unit_Tests
             keyboard.OnKeyPressed(keyPressed);
 
             monitoredSubject.Should()
-                .Raise(nameof(IExposeKeyPressed.KeyPressedEvent))
+                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
         }
 
