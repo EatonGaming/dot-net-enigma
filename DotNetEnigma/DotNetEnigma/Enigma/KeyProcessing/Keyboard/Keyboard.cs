@@ -8,16 +8,16 @@ namespace DotNetEnigma.Enigma.Keyboard
 {
     public class Keyboard : IKeyboard, IKeyProvider
     {
-        public IEnumerable<Key> Keys { get; private set; }
-
         public Keyboard()
         {
             InitializeListOfKeys();
         }
 
+        public static Keyboard Default() => new Keyboard();
+
         public event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
 
-        public static Keyboard Default() => new Keyboard();
+        public IEnumerable<Key> Keys { get; private set; }
 
         public void OnKeyPressed(Key keyPressed)
         {

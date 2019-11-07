@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Integration Tests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DotNetEnigma\DotNetEnigma.csproj" />
   </ItemGroup>
 

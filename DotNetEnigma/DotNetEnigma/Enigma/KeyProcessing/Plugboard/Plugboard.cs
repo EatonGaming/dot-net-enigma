@@ -11,8 +11,6 @@ namespace DotNetEnigma.Enigma.Plugboard
     {
         private IKeyProvider _connectedKeyProvider;
 
-        public ICollection<PlugCable> PlugCableConfiguration { get; private set; } = new List<PlugCable>();
-
         public Plugboard() { }
 
         public Plugboard(IKeyProvider keyProvider)
@@ -31,6 +29,8 @@ namespace DotNetEnigma.Enigma.Plugboard
 
         public event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
 
+        public ICollection<PlugCable> PlugCableConfiguration { get; private set; } = new List<PlugCable>();
+
         public void HandleKeyProvided(object sender, KeyPressedEventArgs e)
         {
             OnKeyEntered(e.KeyPressed);
@@ -42,13 +42,6 @@ namespace DotNetEnigma.Enigma.Plugboard
                 throw new PlugboardConfigurationException("Key already specified in existing configuration.");
 
             PlugCableConfiguration.Add(plugCable);
-        }
-
-        private bool KeyAlreadyUsedByPlugCable(PlugCable plugCable)
-        {
-            var newPlugCable = new Key[] { plugCable.PlugA, plugCable.PlugB };
-
-            return PlugCableConfiguration.Any(x => newPlugCable.Contains(x.PlugA) || newPlugCable.Contains(x.PlugB));
         }
 
         public void RemovePlugCable(PlugCable plugCable)
@@ -76,6 +69,13 @@ namespace DotNetEnigma.Enigma.Plugboard
             var handler = KeyProvidedEvent;
 
             handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = key });
+        }
+
+        private bool KeyAlreadyUsedByPlugCable(PlugCable plugCable)
+        {
+            var newPlugCable = new Key[] { plugCable.PlugA, plugCable.PlugB };
+
+            return PlugCableConfiguration.Any(x => newPlugCable.Contains(x.PlugA) || newPlugCable.Contains(x.PlugB));
         }
 
         private Key ProcessKey(Key keyToProcess)
