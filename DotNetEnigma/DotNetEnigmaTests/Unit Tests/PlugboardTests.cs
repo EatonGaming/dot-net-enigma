@@ -161,12 +161,10 @@ namespace DotNetEnigmaTests.Unit_Tests
             var plugboard = new Plugboard();
             var keyPressed = Key.A;
 
-            using var monitoredSubject = plugboard.Monitor();
-            plugboard.OnKeyEntered(keyPressed);
+            var newKey = plugboard.ProcessKey(keyPressed);
 
-            monitoredSubject.Should()
-                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
-                .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
+            newKey.Should()
+                .Be(keyPressed);
         }
 
         [Test]
@@ -178,12 +176,10 @@ namespace DotNetEnigmaTests.Unit_Tests
             var configuration = new List<PlugCable>() { new PlugCable(plugA, plugB) };
             var plugboard = new Plugboard(configuration);
 
-            using var monitoredSubject = plugboard.Monitor();
-            plugboard.OnKeyEntered(keyEntered);
+            var newKey = plugboard.ProcessKey(keyEntered);
 
-            monitoredSubject.Should()
-                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
-                .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyReturned);
+            newKey.Should()
+                .Be(keyReturned);
         }
 
         [Test]
@@ -191,7 +187,7 @@ namespace DotNetEnigmaTests.Unit_Tests
         {
             var plugboard = new Plugboard();
 
-            Action act = () => plugboard.OnKeyEntered(Key.Unknown);
+            Action act = () => plugboard.ProcessKey(Key.Unknown);
 
             act.Should()
                 .Throw<ArgumentException>();

@@ -1,24 +1,13 @@
-﻿using DotNetEnigma.Enigma.KeyProcessing;
-using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
+﻿using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
 using DotNetEnigma.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DotNetEnigma.Enigma.Plugboard
 {
-    public class Plugboard : IPlugboard, IKeyProvider
+    public class Plugboard : IPlugboard
     {
-        private IKeyProvider _connectedKeyProvider;
-
         public Plugboard() { }
-
-        public Plugboard(IKeyProvider keyProvider)
-        {
-            _connectedKeyProvider = keyProvider;
-
-            _connectedKeyProvider.KeyProvidedEvent += HandleKeyProvided;
-        }
 
         public Plugboard(ICollection<PlugCable> plugCableConfiguration)
         {
@@ -27,14 +16,7 @@ namespace DotNetEnigma.Enigma.Plugboard
 
         public static IPlugboard Default() => new Plugboard();
 
-        public event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
-
         public ICollection<PlugCable> PlugCableConfiguration { get; private set; } = new List<PlugCable>();
-
-        public void HandleKeyProvided(object sender, KeyPressedEventArgs e)
-        {
-            OnKeyEntered(e.KeyPressed);
-        }
 
         public void InsertPlugCable(PlugCable plugCable)
         {
@@ -61,14 +43,11 @@ namespace DotNetEnigma.Enigma.Plugboard
             PlugCableConfiguration = newPlugCableConfiguration;
         }
 
-        public void OnKeyEntered(Key enteredKey)
+        public Key ProcessKey(Key enteredKey)
         {
             Guard.IsNotEqualTo(enteredKey, Key.Unknown, nameof(enteredKey));
 
-            var key = ProcessKey(enteredKey);
-            var handler = KeyProvidedEvent;
-
-            handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = key });
+            return ApplyConfigurationToKey(enteredKey);
         }
 
         private bool KeyAlreadyUsedByPlugCable(PlugCable plugCable)
@@ -78,7 +57,7 @@ namespace DotNetEnigma.Enigma.Plugboard
             return PlugCableConfiguration.Any(x => newPlugCable.Contains(x.PlugA) || newPlugCable.Contains(x.PlugB));
         }
 
-        private Key ProcessKey(Key keyToProcess)
+        private Key ApplyConfigurationToKey(Key keyToProcess)
         {
             var configuredPlugCable = GetPlugCableForKeyIfExists(keyToProcess);
 

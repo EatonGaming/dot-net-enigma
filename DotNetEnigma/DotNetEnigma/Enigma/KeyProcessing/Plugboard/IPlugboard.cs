@@ -1,5 +1,4 @@
-﻿using DotNetEnigma.Enigma.KeyProcessing;
-using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
+﻿using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
 using System.Collections.Generic;
 
 namespace DotNetEnigma.Enigma.Plugboard
@@ -8,8 +7,7 @@ namespace DotNetEnigma.Enigma.Plugboard
     {
         ICollection<PlugCable> PlugCableConfiguration { get; }
 
-        void OnKeyEntered(Key key);
-        void HandleKeyProvided(object sender, KeyPressedEventArgs e);
+        Key ProcessKey(Key key);
 
         void InsertPlugCable(PlugCable keyPair);
         void RemovePlugCable(PlugCable keyPair);
