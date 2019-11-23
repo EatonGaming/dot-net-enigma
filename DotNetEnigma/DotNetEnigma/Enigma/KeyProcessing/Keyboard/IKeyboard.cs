@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DotNetEnigma.Enigma.KeyProcessing.Keyboard
+﻿namespace DotNetEnigma.Enigma.KeyProcessing.Keyboard
 {
     public interface IKeyboard
     {

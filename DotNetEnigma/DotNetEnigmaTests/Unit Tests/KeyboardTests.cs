@@ -4,14 +4,14 @@ using FluentAssertions;
 using System;
 using DotNetEnigma.Enigma.KeyProcessing;
 using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
+using DotNetEnigma.Enigma.Plugboard;
+using System.Collections.Generic;
 
 namespace DotNetEnigmaTests.Unit_Tests
 {
     [TestFixture]
     public class KeyboardTests
     {
-        private readonly int _numberOfKeys = Enum.GetNames(typeof(Key)).Length;
-
         [Test]
         public void Keyboard_InitializedWithStaticFactory_IsNotNull()
         {
@@ -48,6 +48,43 @@ namespace DotNetEnigmaTests.Unit_Tests
 
             act.Should()
                 .Throw<ArgumentException>();
+        }
+
+        [Test]
+        [TestCase(Key.A)]
+        [TestCase(Key.F)]
+        public void KeyboardWithPlugboard_KeyPressedNoConfiguration_KeyReturned(Key keyPressed)
+        {
+            var plugboard = new Plugboard();
+            var keyboard = new Keyboard(plugboard);
+
+            using var monitoredSubject = keyboard.Monitor();
+            keyboard.OnKeyPressed(keyPressed);
+
+            monitoredSubject.Should()
+                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
+                .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
+        }
+
+        [Test]
+        [TestCase(Key.A, Key.C)]
+        [TestCase(Key.C, Key.A)]
+        [TestCase(Key.D, Key.I)]
+        [TestCase(Key.I, Key.D)]
+        [TestCase(Key.F, Key.F)]
+        [TestCase(Key.N, Key.N)]
+        public void KeyboardWithPlugboard_KeyPressedWithConfiguration_ModifiedKeyReturned(Key keyPressed, Key expectedKeyReturned)
+        {
+            var configuration = new List<PlugCable>() { new PlugCable(Key.A, Key.C), new PlugCable(Key.D, Key.I) };
+            var plugboard = new Plugboard(configuration);
+            var keyboard = new Keyboard(plugboard);
+
+            using var monitoredSubject = keyboard.Monitor();
+            keyboard.OnKeyPressed(keyPressed);
+
+            monitoredSubject.Should()
+                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
+                .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == expectedKeyReturned);
         }
     }
 }

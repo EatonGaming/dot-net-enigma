@@ -1,14 +1,21 @@
 ﻿using DotNetEnigma.Enigma.KeyProcessing;
 using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
+using DotNetEnigma.Enigma.Plugboard;
 using DotNetEnigma.Utilities;
 using System;
-using System.Collections.Generic;
 
 namespace DotNetEnigma.Enigma.Keyboard
 {
     public class Keyboard : IKeyboard, IKeyProvider
     {
+        private IPlugboard _plugboard;
+
         public Keyboard() {}
+
+        public Keyboard(IPlugboard plugboard)
+        {
+            _plugboard = plugboard;
+        }
 
         public static Keyboard Default() => new Keyboard();
 
@@ -18,9 +25,12 @@ namespace DotNetEnigma.Enigma.Keyboard
         {
             Guard.IsNotEqualTo(keyPressed, Key.Unknown, nameof(keyPressed));
 
+            var keyToReturn = (_plugboard != null)
+                ? _plugboard.ProcessKey(keyPressed)
+                : keyPressed;
             var handler = KeyProvidedEvent;
 
-            handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyPressed });
+            handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyToReturn });
         }
     }
 }
