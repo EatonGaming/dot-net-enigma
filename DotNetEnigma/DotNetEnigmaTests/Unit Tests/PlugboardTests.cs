@@ -4,7 +4,6 @@ using FluentAssertions;
 using System.Collections.Generic;
 using System;
 using DotNetEnigma.Enigma.KeyProcessing.Keyboard;
-using DotNetEnigma.Enigma.KeyProcessing;
 
 namespace DotNetEnigmaTests.Unit_Tests
 {

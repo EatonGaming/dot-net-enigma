@@ -8,16 +8,11 @@ namespace DotNetEnigma.Enigma.Keyboard
 {
     public class Keyboard : IKeyboard, IKeyProvider
     {
-        public Keyboard()
-        {
-            InitializeListOfKeys();
-        }
+        public Keyboard() {}
 
         public static Keyboard Default() => new Keyboard();
 
         public event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
-
-        public IEnumerable<Key> Keys { get; private set; }
 
         public void OnKeyPressed(Key keyPressed)
         {
@@ -26,11 +21,6 @@ namespace DotNetEnigma.Enigma.Keyboard
             var handler = KeyProvidedEvent;
 
             handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyPressed });
-        }
-
-        private void InitializeListOfKeys()
-        {
-            Keys = (Key[])Enum.GetValues(typeof(Key));
         }
     }
 }

@@ -22,28 +22,6 @@ namespace DotNetEnigmaTests.Unit_Tests
         }
 
         [Test]
-        public void Keyboard_InitializedWithStaticFactory_ContainsAllRequiredKeys()
-        {
-            var keyboard = Keyboard.Default();
-
-            keyboard.Keys.Should()
-                .NotBeNullOrEmpty().And
-                .HaveCount(_numberOfKeys).And
-                .AllBeOfType<Key>();
-        }
-
-        [Test]
-        public void Keyboard_InitializedWithConstructor_ContainsAllRequiredKeys()
-        {
-            var keyboard = new Keyboard();
-
-            keyboard.Keys.Should()
-                .NotBeNullOrEmpty().And
-                .HaveCount(_numberOfKeys).And
-                .AllBeOfType<Key>();
-        }
-
-        [Test]
         [TestCase(Key.A)]
         [TestCase(Key.J)]
         [TestCase(Key.Z)]
