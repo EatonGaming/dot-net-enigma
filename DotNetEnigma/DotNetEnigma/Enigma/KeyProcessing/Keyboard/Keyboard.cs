@@ -32,5 +32,29 @@ namespace DotNetEnigma.Enigma.Keyboard
 
             handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyToReturn });
         }
+
+        public void OnKeyPressed(char key)
+        {
+            Guard.IsNotNull(key, nameof(key));
+
+            var convertedKey = ConvertToKey(key);
+
+            OnKeyPressed(convertedKey);
+        }
+
+        private Key ConvertToKey(char character)
+        {
+            var uppercaseLetter = char.ToUpper(character);
+            var asciiCodeOfLetter = (int)uppercaseLetter;
+
+            if (Enum.IsDefined(typeof(Key), asciiCodeOfLetter))
+            {
+                return (Key)asciiCodeOfLetter;
+            }
+            else
+            {
+                throw new InvalidOperationException("Character provided does not match to character available on current keyboard.");
+            }
+        }
     }
 }
