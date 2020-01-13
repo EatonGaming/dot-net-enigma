@@ -33,7 +33,7 @@ namespace DotNetEnigmaTests.Unit_Tests
             keyboard.OnKeyPressed(keyPressed);
 
             monitoredSubject.Should()
-                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
+                .Raise(nameof(IKeyboard.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
         }
 
@@ -62,7 +62,7 @@ namespace DotNetEnigmaTests.Unit_Tests
             keyboard.OnKeyPressed(keyPressed);
 
             monitoredSubject.Should()
-                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
+                .Raise(nameof(IKeyboard.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == keyPressed);
         }
 
@@ -83,7 +83,7 @@ namespace DotNetEnigmaTests.Unit_Tests
             keyboard.OnKeyPressed(keyPressed);
 
             monitoredSubject.Should()
-                .Raise(nameof(IKeyProvider.KeyProvidedEvent))
+                .Raise(nameof(IKeyboard.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == expectedKeyReturned);
         }
     }

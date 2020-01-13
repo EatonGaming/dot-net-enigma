@@ -6,7 +6,7 @@ using System;
 
 namespace DotNetEnigma.Enigma.Keyboard
 {
-    public class Keyboard : IKeyboard, IKeyProvider
+    public class Keyboard : IKeyboard
     {
         private IPlugboard _plugboard;
 
