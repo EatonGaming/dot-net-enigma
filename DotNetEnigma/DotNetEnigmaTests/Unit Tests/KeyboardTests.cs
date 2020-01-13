@@ -86,5 +86,35 @@ namespace DotNetEnigmaTests.Unit_Tests
                 .Raise(nameof(IKeyboard.KeyProvidedEvent))
                 .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == expectedKeyReturned);
         }
+
+        [Test]
+        [TestCase('a', Key.A)]
+        [TestCase('N', Key.N)]
+        [TestCase('f', Key.F)]
+        public void Keyboard_ValidCharProvided_ConvertedKeyReturned(char providedCharacter, Key expectedKeyReturned)
+        {
+            var keyboard = new Keyboard();
+
+            using var monitoredSubject = keyboard.Monitor();
+            keyboard.OnKeyPressed(providedCharacter);
+
+            monitoredSubject.Should()
+                .Raise(nameof(IKeyboard.KeyProvidedEvent))
+                .WithArgs<KeyPressedEventArgs>(x => x.KeyPressed == expectedKeyReturned);
+        }
+
+        [Test]
+        [TestCase('\0')]
+        [TestCase('7')]
+        [TestCase('>')]
+        public void Keyboard_InvalidCharProvided_InvalidOperationExceptionRaised(char providedCharacter)
+        {
+            var keyboard = new Keyboard();
+
+            Action act = () => keyboard.OnKeyPressed(providedCharacter);
+
+            act.Should()
+                .Throw<InvalidOperationException>();
+        }
     }
 }

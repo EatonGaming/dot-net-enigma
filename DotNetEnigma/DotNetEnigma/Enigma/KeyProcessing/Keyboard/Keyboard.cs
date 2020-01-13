@@ -47,7 +47,7 @@ namespace DotNetEnigma.Enigma.Keyboard
             var uppercaseLetter = char.ToUpper(character);
             var asciiCodeOfLetter = (int)uppercaseLetter;
 
-            if (Enum.IsDefined(typeof(Key), asciiCodeOfLetter))
+            if (Enum.IsDefined(typeof(Key), asciiCodeOfLetter) && asciiCodeOfLetter > 0)
             {
                 return (Key)asciiCodeOfLetter;
             }
