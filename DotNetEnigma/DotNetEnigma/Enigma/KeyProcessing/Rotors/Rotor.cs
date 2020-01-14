@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
-    public class Rotor
+    public class Rotor : IRotor
     {
         public char[] AvailableCharacters => GenerateAlphabetCharArray();
 
