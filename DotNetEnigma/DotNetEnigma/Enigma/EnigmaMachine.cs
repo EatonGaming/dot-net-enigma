@@ -4,7 +4,7 @@ namespace DotNetEnigma.Enigma
 {
     public class EnigmaMachine : IEnigmaMachine
     {
-        private IKeyboard _keyboard = new Keyboard.Keyboard();
+        private IKeyboard _keyboard = Keyboard.Keyboard.Default();
 
         public EnigmaMachine() { }
         public EnigmaMachine(IKeyboard keyboard) { _keyboard = keyboard; }
