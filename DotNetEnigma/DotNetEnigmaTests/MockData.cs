@@ -16,5 +16,7 @@ namespace DotNetEnigmaTests
         public static PlugCable testPlugCableDifferentKeys3 = new PlugCable(Key.Unknown, Key.A);
         public static PlugCable testPlugCableDifferentKeys4 = new PlugCable(Key.A, Key.Unknown);
         public static PlugCable testPlugCableSameKey1 = new PlugCable(Key.A, Key.A);
+
+        public static string DefaultWiringConfiguration = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }
