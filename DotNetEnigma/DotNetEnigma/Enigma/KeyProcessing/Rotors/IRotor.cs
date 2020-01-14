@@ -4,11 +4,11 @@ using System.Text;
 
 namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
-    interface IRotor
+    public interface IRotor
     {
-        List<(char left, char right)> WiringConfiguration { get; }
-        RotorNumber RotorNumber { get; }
-        int NotchPosition { get; }
+        List<(char left, char right)> WiringConfiguration { get; set; }
+        RotorNumber RotorNumber { get; set; }
+        int NotchPosition { get; set; }
 
         void Step();
         char ProcessCharacter(char character, bool reverse);

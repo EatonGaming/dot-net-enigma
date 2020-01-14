@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
-    class Reflector
+    public class Reflector : IReflector
     {
     }
 }

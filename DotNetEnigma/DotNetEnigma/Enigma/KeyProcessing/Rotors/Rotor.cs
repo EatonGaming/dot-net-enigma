@@ -8,9 +8,9 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
     {
         public char[] AvailableCharacters => GenerateAlphabetCharArray();
 
-        public List<(char left, char right)> WiringConfiguration { get; private set; }
-        public RotorNumber RotorNumber { get; private set; }
-        public int NotchPosition { get; private set; }
+        public List<(char left, char right)> WiringConfiguration { get; set; }
+        public RotorNumber RotorNumber { get; set; }
+        public int NotchPosition { get; set; }
 
         public Rotor() { }
 
