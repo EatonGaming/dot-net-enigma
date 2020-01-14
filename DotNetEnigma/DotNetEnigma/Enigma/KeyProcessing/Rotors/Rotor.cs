@@ -3,10 +3,28 @@
     public class Rotor
     {
         public char[] AvailableCharacters => GenerateAlphabetCharArray();
+        public int RotorPosition { get; private set; }
+        public int NotchPosition { get; private set; }
 
         public Rotor() { }
 
+        public Rotor(int notchPosition, int rotorPosition)
+        {
+            NotchPosition = notchPosition;
+            RotorPosition = rotorPosition;
+        }
+
         public static Rotor Default() => new Rotor();
+
+        public void Step()
+        {
+            var nextPosition = NotchPosition + 1;
+
+            if (nextPosition > AvailableCharacters.Length - 1) //-1 offset to account for array indexing.
+                nextPosition = 0;
+
+            NotchPosition = nextPosition;
+        }
 
         private static char[] GenerateAlphabetCharArray()
         {

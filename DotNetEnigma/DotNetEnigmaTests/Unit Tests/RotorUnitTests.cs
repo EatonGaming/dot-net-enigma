@@ -28,5 +28,20 @@ namespace DotNetEnigmaTests.Unit_Tests
                 .HaveElementAt(0, 'A').And
                 .HaveElementAt(25, 'Z');
         }
+
+        [Test]
+        [TestCase(0, 1)]
+        [TestCase(15, 16)]
+        [TestCase(22, 23)]
+        [TestCase(25, 0)]
+        public void NotchPosition_StepRotor_NotchPositionIsCorrectAfterStep(int startNotchPosition, int expectedPostStepNotchPosition)
+        {
+            var rotor = new Rotor(startNotchPosition, 1);
+
+            rotor.Step();
+
+            rotor.NotchPosition.Should()
+                .Be(expectedPostStepNotchPosition);
+        }
     }
 }
