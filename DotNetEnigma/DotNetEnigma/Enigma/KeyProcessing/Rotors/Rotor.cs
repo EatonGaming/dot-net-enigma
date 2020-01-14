@@ -3,15 +3,15 @@
     public class Rotor
     {
         public char[] AvailableCharacters => GenerateAlphabetCharArray();
-        public int RotorPosition { get; private set; }
+        public RotorNumber RotorNumber { get; private set; }
         public int NotchPosition { get; private set; }
 
         public Rotor() { }
 
-        public Rotor(int notchPosition, int rotorPosition)
+        public Rotor(int notchPosition, RotorNumber rotorNumber)
         {
             NotchPosition = notchPosition;
-            RotorPosition = rotorPosition;
+            RotorNumber = rotorNumber;
         }
 
         public static Rotor Default() => new Rotor();
