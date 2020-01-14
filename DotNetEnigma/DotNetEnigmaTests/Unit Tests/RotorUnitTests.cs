@@ -53,8 +53,27 @@ namespace DotNetEnigmaTests.Unit_Tests
             rotor.WiringConfiguration.Should()
                 .NotBeNullOrEmpty().And
                 .HaveCount(26).And
-                .ContainSingle(x => x.left == 'A' && x.right == 'Q').And
-                .ContainSingle(x => x.left == 'Z' && x.right == 'M');
+                .ContainSingle(x => x.right == 'A' && x.left == 'Q').And
+                .ContainSingle(x => x.right == 'Z' && x.left == 'M');
+        }
+
+        [Test]
+        [TestCase('A', 'Q', false)]
+        [TestCase('Q', 'A', true)]
+        [TestCase('M', 'D', false)]
+        [TestCase('D', 'M', true)]
+        [TestCase('T', 'Z', false)]
+        [TestCase('Z', 'T', true)]
+        public void ProcessCharacter_ValidCharacterPassed_CorrectCharacterReturned(char characterToProcess, char expectedResult, bool reverse)
+        {
+            // ----------------- ABCDEFGHIJKLMNOPQRSTUVWXYZ
+            var configuration = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            var rotor = new Rotor(0, RotorNumber.I, configuration);
+
+            var result = rotor.ProcessCharacter(characterToProcess, reverse);
+
+            result.Should()
+                .Be(expectedResult);
         }
     }
 }

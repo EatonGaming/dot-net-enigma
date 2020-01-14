@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
@@ -31,6 +33,29 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
             NotchPosition = nextPosition;
         }
 
+        public char ProcessCharacter(char character, bool reverse)
+        {
+            if (!AvailableCharacters.Contains(character))
+                throw new ArgumentException("Character provided to rotor does not appear in list of available characters.");
+
+            if (!reverse)
+            {
+                var configuration = WiringConfiguration
+                .Where(x => x.right == character)
+                .FirstOrDefault();
+
+                return configuration.left;
+            }
+            else
+            {
+                var configuration = WiringConfiguration
+                .Where(x => x.left == character)
+                .FirstOrDefault();
+
+                return configuration.right;
+            }
+        }
+
         private static char[] GenerateAlphabetCharArray()
         {
             var startIndex = 65;
@@ -52,8 +77,8 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 
             for (int i = 0; i < AvailableCharacters.Length; i++)
             {
-                var leftSideOfRotor = AvailableCharacters[i];
-                var rightSideOfRotor = wiringConfiguration[i];
+                var leftSideOfRotor = wiringConfiguration[i];
+                var rightSideOfRotor = AvailableCharacters[i];
 
                 parsedOutput.Add((leftSideOfRotor, rightSideOfRotor));
             }
