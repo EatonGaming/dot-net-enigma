@@ -7,18 +7,20 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
     public class Rotor : IRotor
     {
         public char[] AvailableCharacters => GenerateAlphabetCharArray();
-
         public List<(char left, char right)> WiringConfiguration { get; set; }
         public RotorNumber RotorNumber { get; set; }
         public int NotchPosition { get; set; }
 
+        public EventHandler<RotorStepEventArgs> RotorRequiresSteppingEvent;
+
         public Rotor() { }
 
-        public Rotor(int notchPosition, RotorNumber rotorNumber, string wiringConfiguration)
+        public Rotor(int notchPosition, RotorNumber rotorNumber, string wiringConfiguration, EventHandler<RotorStepEventArgs> RotorStepEvent)
         {
             NotchPosition = notchPosition;
             RotorNumber = rotorNumber;
             WiringConfiguration = ParseWiringConfiguration(wiringConfiguration);
+            RotorRequiresSteppingEvent = RotorStepEvent;
         }
 
         public static Rotor Default() => new Rotor();
@@ -38,6 +40,11 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
             if (!AvailableCharacters.Contains(character))
                 throw new ArgumentException("Character provided to rotor does not appear in list of available characters.");
 
+            if (RotorNumber == RotorNumber.I)
+                Step();
+
+            StepNextRotorIfRequired();
+
             if (!reverse)
             {
                 var configuration = WiringConfiguration
@@ -53,6 +60,14 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
                 .FirstOrDefault();
 
                 return configuration.right;
+            }
+        }
+
+        private void StepNextRotorIfRequired()
+        {
+            switch (RotorNumber)
+            {
+
             }
         }
 

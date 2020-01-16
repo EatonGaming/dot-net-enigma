@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
@@ -6,7 +7,7 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
     {
         Queue<IRotor> RotorSeries { get; set; }
         IReflector Reflector { get; set; }
-
         char ProcessCharacter(char character);
+        event EventHandler<RotorStepEventArgs> RotorRequiresSteppingEvent;
     }
 }
