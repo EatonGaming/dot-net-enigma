@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using DotNetEnigma.Enigma.KeyProcessing.Rotors;
+using System.Collections.Generic;
 
 namespace DotNetEnigma.Configuration.RotorWiringConfigurations
 {
     public class WiringConfiguration
     {
         public string Configuration { get; set; }
-        public int Rotor { get; set; }
+        public RotorNumber Rotor { get; set; }
     }
 
     public class EnigmaMachine
