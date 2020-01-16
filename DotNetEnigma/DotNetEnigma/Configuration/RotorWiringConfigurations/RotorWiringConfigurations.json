@@ -1,0 +1,21 @@
+{
+  "EnigmaMachines": [
+    {
+      "Name": "Enigma M3",
+      "WiringConfigurations": [
+        {
+          "Configuration": "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
+          "Rotor": 1
+        },
+        {
+          "Configuration": "AJDKSIRUXBLHWTMCQGZNPYFVOE",
+          "Rotor": 2
+        },
+        {
+          "Configuration": "BDFHJLCPRTXVZNYEIWGAKMUSQO",
+          "Rotor": 3
+        }
+      ]
+    }
+  ]
+}
