@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetEnigma.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,21 +7,21 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
     public class Rotor : IRotor
     {
-        public char[] AvailableCharacters => GenerateAlphabetCharArray();
-        public List<(char left, char right)> WiringConfiguration { get; set; }
+        public List<(char left, char right)> WiringConfiguration { get; }
         public RotorNumber RotorNumber { get; set; }
         public int NotchPosition { get; set; }
 
-        public EventHandler<RotorStepEventArgs> RotorRequiresSteppingEvent;
+        public char[] AvailableCharacters => GenerateAlphabetCharArray();
 
         public Rotor() { }
 
-        public Rotor(int notchPosition, RotorNumber rotorNumber, string wiringConfiguration, EventHandler<RotorStepEventArgs> RotorStepEvent)
+        public Rotor(int notchPosition, RotorNumber rotorNumber, string wiringConfiguration)
         {
+            Guard.IsNotNull(wiringConfiguration, nameof(wiringConfiguration));
+
             NotchPosition = notchPosition;
             RotorNumber = rotorNumber;
             WiringConfiguration = ParseWiringConfiguration(wiringConfiguration);
-            RotorRequiresSteppingEvent = RotorStepEvent;
         }
 
         public static Rotor Default() => new Rotor();
@@ -43,8 +44,6 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
             if (RotorNumber == RotorNumber.I)
                 Step();
 
-            StepNextRotorIfRequired();
-
             if (!reverse)
             {
                 var configuration = WiringConfiguration
@@ -60,14 +59,6 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
                 .FirstOrDefault();
 
                 return configuration.right;
-            }
-        }
-
-        private void StepNextRotorIfRequired()
-        {
-            switch (RotorNumber)
-            {
-
             }
         }
 

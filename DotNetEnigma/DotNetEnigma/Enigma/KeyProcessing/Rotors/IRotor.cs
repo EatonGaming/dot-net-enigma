@@ -6,7 +6,7 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Rotors
 {
     public interface IRotor
     {
-        List<(char left, char right)> WiringConfiguration { get; set; }
+        List<(char left, char right)> WiringConfiguration { get; }
         RotorNumber RotorNumber { get; set; }
         int NotchPosition { get; set; }
 
