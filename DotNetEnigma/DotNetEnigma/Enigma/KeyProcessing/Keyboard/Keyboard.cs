@@ -25,13 +25,15 @@ namespace DotNetEnigma.Enigma.Keyboard
         {
             Guard.IsNotEqualTo(keyPressed, Key.Unknown, nameof(keyPressed));
 
-            var keyToReturn = (_plugboard != null)
-                ? _plugboard.ProcessKey(keyPressed)
-                : keyPressed;
+            Key keyToReturn = ProcessKey(keyPressed);
             var handler = KeyProvidedEvent;
 
             handler?.Invoke(this, new KeyPressedEventArgs() { KeyPressed = keyToReturn });
         }
+
+        private Key ProcessKey(Key keyPressed) => (_plugboard != null)
+                            ? _plugboard.ProcessKey(keyPressed)
+                            : keyPressed;
 
         public void OnKeyPressed(char key)
         {
@@ -40,6 +42,19 @@ namespace DotNetEnigma.Enigma.Keyboard
             var convertedKey = ConvertToKey(key);
 
             OnKeyPressed(convertedKey);
+        }
+        public Key PressKey(char key)
+        {
+            Key convertedKey = ConvertToKey(key);
+
+            return PressKey(convertedKey);
+        }
+
+        public Key PressKey(Key keyPressed)
+        {
+            Guard.IsNotEqualTo(keyPressed, Key.Unknown, nameof(keyPressed));
+
+            return ProcessKey(keyPressed);
         }
 
         private Key ConvertToKey(char character)
@@ -56,5 +71,6 @@ namespace DotNetEnigma.Enigma.Keyboard
                 throw new InvalidOperationException("Character provided does not match to character available on current keyboard.");
             }
         }
+
     }
 }

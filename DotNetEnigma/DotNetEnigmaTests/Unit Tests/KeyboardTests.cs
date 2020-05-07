@@ -116,5 +116,44 @@ namespace DotNetEnigmaTests.Unit_Tests
             act.Should()
                 .Throw<InvalidOperationException>();
         }
+
+        [Test]
+        public void ValidKeyNoPlugboard_KeyPressed_SameKeyReturned()
+        {
+            var keyboard = new Keyboard();
+            var key = Key.A;
+            var expected = key;
+
+            Key actual = keyboard.PressKey(key);
+
+            actual.Should().Be(expected);
+        }
+
+
+        [Test]
+        public void ValidKeyPlugboard_KeyPressed_SameKeyReturned()
+        {
+            var configuration = new List<PlugCable>() { new PlugCable(Key.A, Key.C) };
+            var plugboard = new Plugboard(configuration);
+            var keyboard = new Keyboard(plugboard);
+            var key = Key.A;
+            var expected = Key.C;
+
+            Key actual = keyboard.PressKey(key);
+
+            actual.Should().Be(expected);
+        }
+
+        [Test]
+        public void ValidKeyNoPlugboard_KeyPressedChar_SameKeyReturned()
+        {
+            var keyboard = new Keyboard();
+            var key = (char)65;
+            var expected = key;
+
+            Key actual = keyboard.PressKey(key);
+
+            actual.Should().Be(expected);
+        }
     }
 }

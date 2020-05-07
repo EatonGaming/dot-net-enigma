@@ -61,11 +61,18 @@ namespace DotNetEnigma.Enigma.Plugboard
         {
             var configuredPlugCable = GetPlugCableForKeyIfExists(keyToProcess);
 
-            return (configuredPlugCable != null)
-                ? (configuredPlugCable.PlugA == keyToProcess)
-                    ? configuredPlugCable.PlugB
-                    : configuredPlugCable.PlugA
-                : keyToProcess;
+            if (configuredPlugCable == null)
+            {
+                return keyToProcess;
+            }
+            else if (configuredPlugCable.PlugA == keyToProcess)
+            {
+                return configuredPlugCable.PlugB;
+            }
+            else
+            {
+                return configuredPlugCable.PlugA;
+            }
         }
 
         private PlugCable GetPlugCableForKeyIfExists(Key key) => PlugCableConfiguration.SingleOrDefault(x => x.PlugA == key || x.PlugB == key);

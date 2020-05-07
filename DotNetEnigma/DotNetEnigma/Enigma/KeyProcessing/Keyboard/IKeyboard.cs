@@ -6,6 +6,8 @@ namespace DotNetEnigma.Enigma.KeyProcessing.Keyboard
     {
         void OnKeyPressed(Key key);
         void OnKeyPressed(char key);
+        Key PressKey(Key key);
+        Key PressKey(char key);
 
         event EventHandler<KeyPressedEventArgs> KeyProvidedEvent;
     }
